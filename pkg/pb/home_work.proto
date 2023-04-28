@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/yushk/sport_backend/manager/pb;pb";
+
+import "sport_item.proto";
+import "solution.proto";
+
+message HomeWork {
+    string id = 1;
+    SportItem sport_item = 2;
+    string sport_item_id = 3;
+    string teacher = 4;
+    int64 start_time = 5;
+    int64 end_time = 6;
+    string QR_code = 7;
+    int32 number = 8;
+    string desc = 9;
+    repeated string solutions_info_id = 10;
+    repeated Solution solutions_info = 11;
+    string title = 12;
+}
+
+service HomeWorkManager {
+    rpc CreateHomeWork(CreateHomeWorkRequest) returns (HomeWork) {}
+    rpc GetHomeWork(GetHomeWorkRequest) returns (HomeWork) {}
+    rpc UpdateHomeWork(UpdateHomeWorkRequest) returns (HomeWork) {}
+    rpc DeleteHomeWork(DeleteHomeWorkRequest) returns (HomeWork) {}
+    rpc GetHomeWorks(GetHomeWorksRequest) returns (GetHomeWorksReply) {}
+}
+
+message CreateHomeWorkRequest {
+    HomeWork data = 1;
+}
+
+message GetHomeWorkRequest {
+    string id = 1;
+}
+
+message UpdateHomeWorkRequest {
+    string id = 1;
+    HomeWork data = 2;
+}
+
+message DeleteHomeWorkRequest {
+    string id = 1;
+}
+
+message GetHomeWorksRequest {
+    string query = 1;
+    int64 skip = 2;
+    int64 limit = 3;
+}
+
+message GetHomeWorksReply {
+    int64 total_count = 1;
+    repeated HomeWork items = 2;
+}

@@ -1,0 +1,6 @@
+FROM alpine
+LABEL MAINTAINER="yushk <945009587@qq.com>"
+
+COPY manager/bin/ /sport/
+
+CMD ["/sport/manager"]

@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/yushk/sport_backend/manager/pb;pb";
+
+import "work.proto";
+
+message Course {
+    string id = 1;
+    string userid = 2;
+    string title = 3;
+    repeated FileInfo files = 4;
+    string content = 5;
+    string desc = 6;
+    int32 type = 7;
+    int64 create = 8;
+    int64 update = 9;
+    string username = 10;
+}
+
+service CourseManager {
+    rpc CreateCourse(CreateCourseRequest) returns (Course) {}
+    rpc GetCourse(GetCourseRequest) returns (Course) {}
+    rpc UpdateCourse(UpdateCourseRequest) returns (Course) {}
+    rpc DeleteCourse(DeleteCourseRequest) returns (Course) {}
+    rpc GetCourses(GetCoursesRequest) returns (GetCoursesReply) {}
+}
+
+message CreateCourseRequest {
+    Course data = 1;
+}
+
+message GetCourseRequest {
+    string id = 1;
+}
+
+message UpdateCourseRequest {
+    string id = 1;
+    Course data = 2;
+}
+
+message DeleteCourseRequest {
+    string id = 1;
+}
+
+message GetCoursesRequest {
+    string sort = 1;
+    string query = 2;
+    int64 skip = 3;
+    int64 limit = 4;
+}
+
+message GetCoursesReply {
+    int64 total_count = 1;
+    repeated Course items = 2;
+}

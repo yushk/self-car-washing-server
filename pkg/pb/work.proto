@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/yushk/sport_backend/manager/pb;pb";
+
+message FileInfo {
+    string name = 1;
+    string url = 2;
+}
+
+message NoteInfo {
+    string userid = 1;
+    string score = 2;
+    string content = 3;
+    string status = 4;
+    string value = 5;
+}
+
+message Work {
+    string id = 1;
+    string userid = 2;
+    string course = 3;
+    string course_title = 4;
+    repeated FileInfo files = 5;
+    string content = 6;
+    string note = 7;
+    string score = 8;
+    int32 type = 9;
+    int64 create = 10;
+    int64 update = 11;
+    string username = 12;
+    string course_creater = 13;
+    string teacherid = 14;
+    repeated string noter = 15;
+    repeated NoteInfo note_info = 16;
+}
+
+service WorkManager {
+    rpc CreateWork(CreateWorkRequest) returns (Work) {}
+    rpc GetWork(GetWorkRequest) returns (Work) {}
+    rpc UpdateWork(UpdateWorkRequest) returns (Work) {}
+    rpc DeleteWork(DeleteWorkRequest) returns (Work) {}
+    rpc GetWorks(GetWorksRequest) returns (GetWorksReply) {}
+}
+
+message CreateWorkRequest {
+    Work data = 1;
+}
+
+message GetWorkRequest {
+    string id = 1;
+}
+
+message UpdateWorkRequest {
+    string id = 1;
+    Work data = 2;
+}
+
+message DeleteWorkRequest {
+    string id = 1;
+}
+
+message GetWorksRequest {
+    string sort = 1;
+    string query = 2;
+    int64 skip = 3;
+    int64 limit = 4;
+}
+
+message GetWorksReply {
+    int64 total_count = 1;
+    repeated Work items = 2;
+}
